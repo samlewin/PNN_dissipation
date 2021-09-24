@@ -4,7 +4,7 @@ This repository is the official implementation of the paper `Probablistic neural
 
 ## Requirements
 
-To install requirements:
+The code included in this repository is set up for use on a GPU enabled with CUDA and CuDNN. To install the required packages, run the following command:
 
 ```setup
 pip install -r requirements.txt
@@ -14,11 +14,13 @@ We recommend using a Python 3 virtual environment.
 
 ## Training
 
-To train the PNN described in the paper, run this command:
+To train the PNN described in the paper, run the following command:
 
 ```train
 python3 train_model.py 
 ```
+
+This will create a file called 'model_modelname.h5' where modelname is the name specified in train_model.py. 
 
 ## Testing
 
