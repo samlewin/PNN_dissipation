@@ -10,7 +10,7 @@ To install requirements:
 pip install -r requirements.txt
 ```
 
-Requirements are best installed in a Python 3 virtual environment.
+We reccommend using a Python 3 virtual environment.
 
 ## Training
 
