@@ -10,7 +10,7 @@ The code included in this repository is set up for use on a GPU enabled with CUD
 pip install -r requirements.txt
 ```
 
-We recommend using a Python 3 virtual environment.
+We recommend using a [Python 3 virtual environment](https://docs.python.org/3/library/venv.html).
 
 ## Training
 
