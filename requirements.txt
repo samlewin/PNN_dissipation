@@ -4,4 +4,4 @@ numpy
 scipy
 cmocean
 matplotlib
-jupyter 
+jupyterlab
