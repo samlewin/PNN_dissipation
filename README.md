@@ -14,7 +14,7 @@ We recommend using a [Python 3 virtual environment](https://docs.python.org/3/li
 
 ## Training
 
-To train the PNN described in the paper, run the following command:
+Note that, due to large file sizes, training data is available upon request. However, testing data and a pre-trained model which can be used together to reproduce the figures in the paper are included. To train the PNN described in the paper, run the following command:
 
 ```train
 python3 train_model.py 
@@ -30,9 +30,13 @@ To test the model on the included test dataset, run:
 python test_model.py 
 ```
 
+## Evaluation code
+
+After testing as above, code for reproducing the figures found in the paper is available in the included jupyter notebook post_processing.ipynb.
+
 ## Pre-trained Models
 
-A pre-trained model model_shearr_mixed_all.h5 is included in the repository.
+A pre-trained model model_shearr_mixed_all.h5 is included in the repository. This will be loaded by default by test_model.py.
 
 ## Contributing
 
