@@ -40,5 +40,5 @@ A pre-trained model model_shearr_mixed_all.h5 is included in the repository. Thi
 
 ## Contributing
 
-If you have any questions about the code, or any suggestions for improvements, please email sl918@cam.ac.uk, or open an issue on this repository. All content in this repository is licensed under the MIT license.
+If you have any questions about the code, or any suggestions for improvements, please email *anonymized*, or open an issue on this repository. All content in this repository is licensed under the MIT license.
 
