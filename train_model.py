@@ -22,7 +22,7 @@ print("Num GPUs:", len(gpus))
 
 model_name = 'shearr_mixed_all'
 learning_rate = 0.005
-drhobar = -4449.54142238117 #Mean background stratification
+drhobar = -4449.54142238117
 
 #Define evaluations metrics and loss function
 
@@ -54,9 +54,9 @@ def get_compiled_model():
     inputs = keras.Input(shape=((500,2,1,)),name='inp');
     features = inputs
     features = keras.layers.Conv2D(32, (3, 1), activation='relu', input_shape=(500, 2, 1))(features)
-    features = keras.layers.Conv2D(64, (3, 2), activation='relu')(features)
+    features = keras.layers.Conv2D(32, (3, 2), activation='relu')(features)
     features = keras.layers.MaxPooling2D((2, 1))(features)
-    features = keras.layers.Conv2D(64, (3, 1), activation='relu')(features)
+    features = keras.layers.Conv2D(32, (3, 1), activation='relu')(features)
     features = keras.layers.Flatten()(features)
     params = keras.layers.Dense(500+500, activation="elu")(features)
     outputs= tfp.layers.IndependentNormal((500,1))(params)
@@ -69,14 +69,12 @@ def get_compiled_model():
     return model
 
 def get_dataset(loc):
-    '''Build the training and validation (test) dataset. loc is the directory training data is stored in'''
+    '''Build the training dataset. loc is the directory training data is stored in'''
     input1 = np.load(loc + 'train_dudz.npy')**2 + np.load(loc + 'train_dvdz.npy')**2
     input2 = drhobar + np.load(loc + 'train_drdz.npy')
 
     train_data   = np.zeros((input1.shape[0], input1.shape[1], 2))
-    test_data   = np.zeros((input1.shape[0], input1.shape[1], 2))
     train_labels = np.zeros((input1.shape[0], input1.shape[1], 1))
-    test_labels  = np.zeros((input1.shape[0], input1.shape[1], 1))
     
     #Normalize data 
     train_data[:,:,0] = input1/32000
@@ -84,15 +82,13 @@ def get_dataset(loc):
     train_labels[:,:,0] = np.log10(np.load(loc + 'train_dissipation.npy'))
     
     train_dataset = tf.data.Dataset.from_tensor_slices((train_data,train_labels))
-    test_dataset = tf.data.Dataset.from_tensor_slices((test_data, test_labels))
 
     #Batch data
     BATCH_SIZE = 1000
     SHUFFLE_BUFFER_SIZE = 1000
     train_dataset = train_dataset.shuffle(SHUFFLE_BUFFER_SIZE).batch(BATCH_SIZE,drop_remainder=True)
-    test_dataset = test_dataset.batch(BATCH_SIZE,drop_remainder=True)
 
-    return train_dataset, test_dataset
+    return train_dataset
 
 # Tensorboard set-up
 # log_dir = run_dir+model_name+"/logs/fit/" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
@@ -103,9 +99,9 @@ model = get_compiled_model()
 print(model.summary())
 
 #Build datasets and train model
-train_dataset, test_dataset = get_dataset(run_dir+'data/')
-model.fit(train_dataset, callbacks=[tensorboard_callback], epochs=50) 
+train_dataset = get_dataset(run_dir+'data/')
+model.fit(train_dataset, epochs=30) 
 
 #Save model
-model.save(run_dir+'/model_' + model_name+'.h5')
+model.save(run_dir+'model_' + model_name+'.h5')
 
