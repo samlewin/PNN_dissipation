@@ -1,3 +1,6 @@
 tensorflow
 tensorflow-probability
 numpy 
+scipy
+cmocean
+matplotlib
