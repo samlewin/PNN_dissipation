@@ -22,7 +22,7 @@ print("Num GPUs:", len(gpus))
 
 model_name = 'shearr_mixed_all'
 learning_rate = 0.005
-drhobar = -4449.54142238117
+drhobar = -4449.54142238117 #Mean background stratification
 
 #Define evaluations metrics and loss function
 
